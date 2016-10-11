@@ -1,21 +1,26 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgSemanticModule } from "ng-semantic";
+import { NgModule }      from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { FormsModule } from '@angular/forms'
+import { NgSemanticModule } from "ng-semantic"
+import { DragulaModule } from "ng2-dragula/ng2-dragula"
 
-import { AppComponent }  from './components/app.component';
-import { routing, APP_ROUTER_PROVIDERS } from "./routes";
+import { AppComponent }  from './components/app.component'
+import { routing, APP_ROUTER_PROVIDERS } from "./routes"
 
-import { HomeComponent } from './components/home/home.component';
-import { ReviewComponent } from './components/reviews/reviews.component';
-import { AddReviewComponent } from "./components/reviews/add/add.component";
-import { StatisticReviewComponent } from "./components/reviews/statistic/statistic.component";
-import { EventsComponent } from "./components/events/events.component";
-import { Auth } from "./services/auth";
+import { Auth } from "./services/auth"
+
+import { ExamsComponent } from './components/exams/exams.component'
+import { ExamsIndexComponent } from './components/exams/index.component'
+import { ExamsNewComponent } from './components/exams/new.component'
+
+import { SplitSentencePipe } from './pipes/split_sentence.pipe'
 
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         NgSemanticModule,
+        DragulaModule,
         routing
     ],
     providers: [
@@ -24,11 +29,10 @@ import { Auth } from "./services/auth";
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
-        ReviewComponent,
-        AddReviewComponent,
-        StatisticReviewComponent,
-        EventsComponent
+        ExamsComponent,
+        ExamsIndexComponent,
+        ExamsNewComponent,
+        SplitSentencePipe,
     ],
     bootstrap: [
         AppComponent

@@ -27,7 +27,14 @@
             'semantic':                   'vendor/semantic.min.js',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
             'angular2-jwt':               'npm:angular2-jwt/angular2-jwt.js',
-            'ng-semantic':                'npm:ng-semantic'
+            'ng-semantic':                'npm:ng-semantic',
+            'dragula':                    'npm:dragula/dist/dragula.js',
+            'ng2-dragula':                'npm:ng2-dragula',
+            //'contra':                     'npm:contra',
+            //'contra/emitter':             'npm:contra/emitter.js',
+            //'crossvent':                  'npm:crossvent/dist/crossvent.js',
+            //'atoa':                       'npm:atoa/atoa.js',
+            //'ticky':                      'npm:ticky/ticky.js',
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -45,8 +52,16 @@
             'ng-semantic': {
                 main: 'ng-semantic',
                 defaultExtension: 'js'
-            }
+            },
+            'contra': {
+                main: 'debounce',
+                defaultExtension: 'js'
+            },
+            'ng2-dragula': {
+              'format': 'cjs',
+              'main': 'ng2-dragula',
+              'defaultExtension': 'js'
+            },
         }
     });
 })(this);
-

@@ -1,0 +1,19 @@
+.box {
+  clear: both;
+  float: left;
+}
+
+.inbox {
+  float: left;
+  font-size: 20px;
+  display: table-cell;
+  border-radius: 3px;
+  height: 28px;
+  line-height: 28px;
+  margin: 0 8px 6px 0;
+  padding: 0 1px 0 8px;
+  font-weight: 500;
+  white-space: nowrap;
+  background-color: #E0EDF5;
+  color: #2F5D92;
+}

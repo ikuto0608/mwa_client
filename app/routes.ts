@@ -1,22 +1,19 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router'
 
-import { HomeComponent } from './components/home/home.component';
-import { ReviewComponent } from './components/reviews/reviews.component';
-import { AddReviewComponent } from "./components/reviews/add/add.component";
-import { StatisticReviewComponent } from "./components/reviews/statistic/statistic.component";
-import { AuthGuard } from "./services/authguard";
-import { EventsComponent } from "./components/events/events.component";
+import { AuthGuard } from "./services/authguard"
+
+import { ExamsComponent } from './components/exams/exams.component'
+import { ExamsIndexComponent } from './components/exams/index.component'
+import { ExamsNewComponent } from './components/exams/new.component'
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent, pathMatch: 'full' },
-    {   path: 'reviews',
-        component: ReviewComponent,
-        children: [
-            { path: '', component: StatisticReviewComponent },
-            { path: 'add', component: AddReviewComponent }
-        ]
+  { path: 'exams',
+      component: ExamsComponent,
+      children: [
+        { path: '', component: ExamsIndexComponent },
+        { path: 'new', component: ExamsNewComponent },
+      ]
     },
-    { path: 'events', component: EventsComponent, canActivate: [AuthGuard] }
 ];
 
 export const APP_ROUTER_PROVIDERS: Array<{}> = [
