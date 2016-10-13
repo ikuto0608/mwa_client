@@ -1,55 +1,57 @@
 import { Component, OnInit } from '@angular/core'
-import { Topic } from '../../models/topic'
+
 import { Category } from '../../models/category'
+import { Exam } from '../../models/exam'
+import { Topic } from '../../models/topic'
 
 @Component({
   selector: 'topic-new',
   templateUrl: 'app/components/exams/new.component.html',
   styleUrls: ['app/components/exams/new.component.css'],
+  providers: [Exam]
 })
 export class ExamsNewComponent {
-  public topicArray: any
   public category: Category
-  public numberOfAnswer: number
+  //public exam: Exam
 
-  constructor() {
+  constructor(private exam: Exam) {
 
   }
 
   ngOnInit() {
-    this.topicArray = new Array<Topic>()
-    this.topicArray.push(new Topic())
+    //this.exam = new Exam()
+    this.exam.topics.push(new Topic())
   }
 
   addTopic() {
-    this.topicArray.push(new Topic())
+    this.exam.topics.push(new Topic())
   }
 
   deleteTopic(index: number) {
-    this.topicArray.splice(index, 1)
+    this.exam.topics.splice(index, 1)
   }
 
   createTopics() {
-
+    this.exam.save()
   }
 
   splitSentence(value: string, index: number) {
-    this.topicArray[index].questionArray = []
+    this.exam.topics[index].questionArray = []
     value.split(' ').forEach((word) => {
-      this.topicArray[index].questionArray.push(word)
+      this.exam.topics[index].questionArray.push(word)
     })
   }
 
   setAnswer(indexOfTopicArray: number, indexOfWord: number) {
-    var index = this.topicArray[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord)
+    var index = this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord)
     if (index < 0) {
-      this.topicArray[indexOfTopicArray].indexArrayOfAnswer.push(indexOfWord)
+      this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.push(indexOfWord)
     } else {
-      this.topicArray[indexOfTopicArray].indexArrayOfAnswer.splice(index, 1)
+      this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.splice(index, 1)
     }
   }
 
   isAnswerSelected(indexOfTopicArray: number, indexOfWord: number) {
-    return this.topicArray[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord) != -1
+    return this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord) != -1
   }
 }

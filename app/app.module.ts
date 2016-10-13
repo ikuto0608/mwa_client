@@ -1,6 +1,10 @@
 import { NgModule }      from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
+import { HttpModule, JsonpModule } from '@angular/http'
+// Add the RxJS Observable operators we need in this app.
+import './rxjs-operators';
+
 import { NgSemanticModule } from "ng-semantic"
 import { DragulaModule } from "ng2-dragula/ng2-dragula"
 
@@ -19,6 +23,8 @@ import { SplitSentencePipe } from './pipes/split_sentence.pipe'
     imports: [
         BrowserModule,
         FormsModule,
+        HttpModule,
+        JsonpModule,
         NgSemanticModule,
         DragulaModule,
         routing
