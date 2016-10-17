@@ -3,23 +3,24 @@ import { Component, OnInit } from '@angular/core'
 import { Category } from '../../models/category'
 import { Exam } from '../../models/exam'
 import { Topic } from '../../models/topic'
+import { ExamService } from '../../services/exam.service'
 
 @Component({
   selector: 'topic-new',
   templateUrl: 'app/components/exams/new.component.html',
   styleUrls: ['app/components/exams/new.component.css'],
-  providers: [Exam]
+  providers: [ExamService]
 })
 export class ExamsNewComponent {
   public category: Category
-  //public exam: Exam
+  public exam: Exam
 
-  constructor(private exam: Exam) {
+  constructor(private examService: ExamService) {
 
   }
 
   ngOnInit() {
-    //this.exam = new Exam()
+    this.exam = new Exam()
     this.exam.topics.push(new Topic())
   }
 
@@ -32,7 +33,8 @@ export class ExamsNewComponent {
   }
 
   createTopics() {
-    this.exam.save()
+    this.examService.save(this.exam.toJson())
+    //this.exam.save()
   }
 
   splitSentence(value: string, index: number) {

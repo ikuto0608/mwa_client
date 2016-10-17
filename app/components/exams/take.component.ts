@@ -4,29 +4,30 @@ import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../../models/exam'
 import { Question } from '../../models/question'
+import { ExamService } from '../../services/exam.service'
 
 @Component({
   selector: 'exam-take',
   templateUrl: 'app/components/exams/take.component.html',
   styleUrls: ['app/components/exams/take.component.css'],
-  providers: [Exam]
+  providers: [ExamService]
 })
 export class ExamsTakeComponent {
   public exam: Exam
   public questionIndex: number
 
-  constructor(private _exam: Exam, private route: ActivatedRoute) {
+  constructor(private examService: ExamService, private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
     let id = +this.route.snapshot.params['id']
-    this._exam.http.get('http://localhost:3000/exams/take/' + id)
-        .map((res) => res.json())
+    this.examService.find(id)
         .subscribe(
           data => this.exam = Exam.toExam(data),
           err => console.log(err),
           () => console.log('done')
         )
-  }
 
-  ngOnInit() {
     this.questionIndex = 0
   }
 
@@ -42,12 +43,9 @@ export class ExamsTakeComponent {
     }
 
     this.questionIndex++
-    console.log(this.exam.resultArray)
   }
 
   sendResult() {
-    this._exam.id = this.exam.id
-    this._exam.resultArray = this.exam.resultArray
-    this._exam.sendResult()
+    this.examService.sendResult(this.exam.toJson())
   }
 }
