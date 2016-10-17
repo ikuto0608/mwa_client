@@ -16,6 +16,7 @@ import { Auth } from "./services/auth"
 import { ExamsComponent } from './components/exams/exams.component'
 import { ExamsIndexComponent } from './components/exams/index.component'
 import { ExamsNewComponent } from './components/exams/new.component'
+import { ExamsTakeComponent } from './components/exams/take.component'
 
 import { SplitSentencePipe } from './pipes/split_sentence.pipe'
 
@@ -38,6 +39,7 @@ import { SplitSentencePipe } from './pipes/split_sentence.pipe'
         ExamsComponent,
         ExamsIndexComponent,
         ExamsNewComponent,
+        ExamsTakeComponent,
         SplitSentencePipe,
     ],
     bootstrap: [

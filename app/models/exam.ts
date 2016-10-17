@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 
 import { Topic } from './topic'
+import { Question } from './question'
 
 @Injectable()
 export class Exam {
@@ -12,11 +13,15 @@ export class Exam {
   public categoryId: number
   public numberOfAnswer: number
   public topics: Array<Topic>
+  public questions: Array<Question>
+  public resultArray: Array<Object>
 
   static examsUrl = 'http://localhost:3000/exams'
 
-  constructor(private http: Http) {
+  constructor(public http: Http) {
     this.topics = new Array<Topic>()
+    this.questions = new Array<Question>()
+    this.resultArray = new Array<Object>()
   }
 
   static all(): Observable<Exam[]> {
@@ -25,32 +30,49 @@ export class Exam {
                .map((r: Response) => r.json().data as Exam[])
   }
 
+  find(id: number) {
+    this.http.get('http://localhost:3000/exams/take/' + id)
+        .map((res: Response) => res.json())
+        .subscribe(
+          data => Exam.toExam(data),
+          err => console.log(err),
+          () => console.log('done')
+        )
+  }
+
   save() {
-    let t = new Array<any>()
-    let index = 0
-    this.topics.forEach((topic) => {
-      let elements = {}
-      elements[index] = { question: topic.question, questionArray: topic.questionArray, indexArrayOfAnswer: topic.indexArrayOfAnswer }
-
-      t.push(elements)
-      index += 1
-    })
-
-    t = []
-
-    this.topics.forEach((topic) => {
-      t.push({ question: topic.question, questionArray: topic.questionArray, indexArrayOfAnswer: topic.indexArrayOfAnswer })
-    })
-
-    let e = {exam: {name: this.name, topics_attributes: t }}
-    let body = JSON.stringify(e)
+    let body = this.toJson()
     let headers = new Headers({'Content-Type': 'application/json'})
     let options = new RequestOptions({headers: headers})
 
-console.log(body)
-
      this.http.post('http://localhost:3000/exams', body, options)
               .map(res => res.json()).subscribe()
+  }
+
+  sendResult() {
+    let body = this.toJson()
+    let headers = new Headers({'Content-Type': 'application/json'})
+    let options = new RequestOptions({headers: headers})
+
+     this.http.post('http://localhost:3000/exams/result', body, options)
+              .map(res => res.json()).subscribe()
+  }
+
+  toJson(): any {
+    let topics = new Array<any>()
+
+    if (this.topics) {
+      this.topics.forEach((topic) => {
+        topics.push({ question: topic.question, question_array: topic.questionArray, index_array_of_answer: topic.indexArrayOfAnswer })
+      })
+    }
+
+    return JSON.stringify({exam: { id: this.id, name: this.name, topics_attributes: topics, result_array: this.resultArray }})
+  }
+
+  static toExam(json: any): Exam {
+    let exam = Object.create(Exam.prototype)
+    return Object.assign(exam, json)
   }
 
   private extractData(res: Response) {
