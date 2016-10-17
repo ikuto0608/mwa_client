@@ -38,8 +38,9 @@ export class ExamService {
     let headers = new Headers({'Content-Type': 'application/json'})
     let options = new RequestOptions({headers: headers})
 
-     this.http.post('http://localhost:3000/exams/result', body, options)
-              .map(res => res.json()).subscribe()
+    return this.http.post('http://localhost:3000/exams/result', body, options)
+               .map(res => res.json())
+               .catch(this.handleError)
   }
 
   private extractData(res: Response) {

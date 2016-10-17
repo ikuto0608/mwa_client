@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Directive } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../../models/exam'
 import { Question } from '../../models/question'
 import { ExamService } from '../../services/exam.service'
+
+//import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES, SemanticModalComponent } from "ng-semantic";
 
 @Component({
   selector: 'exam-take',
@@ -14,6 +16,7 @@ import { ExamService } from '../../services/exam.service'
 })
 export class ExamsTakeComponent {
   public exam: Exam
+  public resultExam: Exam
   public questionIndex: number
 
   constructor(private examService: ExamService, private route: ActivatedRoute) {
@@ -47,5 +50,10 @@ export class ExamsTakeComponent {
 
   sendResult() {
     this.examService.sendResult(this.exam.toJson())
+        .subscribe(
+          data => this.resultExam = data,
+          err => console.log(err),
+          () => this.showResult()
+        )
   }
 }
