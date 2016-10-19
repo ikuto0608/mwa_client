@@ -21,8 +21,7 @@
 
 <div *ngIf="resultExam">
   <button smDirTooltip="Tooltip text" smDirPosition="bottom center" class="ui button positive" (click)="modal.show({transition: 'fly down'})">Show modal window</button>
-
-  <sm-modal #fullscreen #modal class="fullscreen" title="Result">
+  <sm-modal id="result-modal" #modal title="Result">
     <i class="close icon"></i>
     <div class="header">
       Modal Title
@@ -47,7 +46,7 @@
     </modal-content>
     <modal-actions>
       <div class="ui button">Cancel</div>
-      <div class="ui button">OK</div>
+      <div class="ui button" (click)="hoge()">OK</div>
     </modal-actions>
   </sm-modal>
 </div>

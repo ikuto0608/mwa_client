@@ -6,8 +6,6 @@ import { Exam } from '../../models/exam'
 import { Question } from '../../models/question'
 import { ExamService } from '../../services/exam.service'
 
-//import { SEMANTIC_COMPONENTS, SEMANTIC_DIRECTIVES, SemanticModalComponent } from "ng-semantic";
-
 @Component({
   selector: 'exam-take',
   templateUrl: 'app/components/exams/take.component.html',
@@ -53,7 +51,7 @@ export class ExamsTakeComponent {
         .subscribe(
           data => this.resultExam = data,
           err => console.log(err),
-          () => this.showResult()
+          () => console.log('done')
         )
   }
 }
