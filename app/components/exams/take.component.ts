@@ -16,6 +16,7 @@ export class ExamsTakeComponent {
   public exam: Exam
   public resultExam: Exam
   public questionIndex: number
+  public progress: number
 
   constructor(private examService: ExamService, private route: ActivatedRoute) {
   }
@@ -30,6 +31,7 @@ export class ExamsTakeComponent {
         )
 
     this.questionIndex = 0
+    this.progress = 0
   }
 
   chooseAnswer(answerIndex) {
@@ -53,5 +55,9 @@ export class ExamsTakeComponent {
           err => console.log(err),
           () => console.log('done')
         )
+  }
+
+  progressUp() {
+    this.progress += 10
   }
 }

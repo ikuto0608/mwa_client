@@ -18,7 +18,11 @@ import { ExamsIndexComponent } from './components/exams/index.component'
 import { ExamsNewComponent } from './components/exams/new.component'
 import { ExamsTakeComponent } from './components/exams/take.component'
 
+import { StopwatchComponent } from './components/shares/stopwatch.component'
+import { ConfirmModalComponent } from './components/shares/confirm_modal.component'
+
 import { SplitSentencePipe } from './pipes/split_sentence.pipe'
+import { FormatMMSSSSPipe } from './pipes/formatMMSSSS.pipe'
 
 @NgModule({
     imports: [
@@ -40,7 +44,10 @@ import { SplitSentencePipe } from './pipes/split_sentence.pipe'
         ExamsIndexComponent,
         ExamsNewComponent,
         ExamsTakeComponent,
+        StopwatchComponent,
+        ConfirmModalComponent,
         SplitSentencePipe,
+        FormatMMSSSSPipe,
     ],
     bootstrap: [
         AppComponent

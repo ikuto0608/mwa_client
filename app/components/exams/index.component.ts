@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { Exam } from '../../models/exam'
@@ -9,8 +9,11 @@ import { ExamService } from '../../services/exam.service'
   templateUrl: 'app/components/exams/index.component.html',
   providers: [ExamService],
 })
-export class ExamsIndexComponent {
+export class ExamsIndexComponent implements AfterViewInit {
+  @ViewChild('confirmModal') confirmModal: ElementRef
+
   public examArray: any
+  public modal: any
 
   constructor(private examService: ExamService, private router: Router) {
 
@@ -27,8 +30,21 @@ export class ExamsIndexComponent {
         )
   }
 
-  takeExam(id: number) {
-    this.router.navigate(['/exams/take/' + id])
+  ngAfterViewInit() {
+    this.modal = this.confirmModal
   }
 
+  takeExam(id: number) {
+    let r = this.router
+    this.modal.confirmModal.show({
+      inverted: true,
+      duration: 100,
+      onApprove: function() {
+        r.navigate(['/exams/take/' + id])
+      },
+      onDeny: function() {
+        return true
+      },
+    })
+  }
 }

@@ -1,16 +1,39 @@
 <div *ngIf="exam">
   <div *ngFor="let question of exam.questions; let i = index;">
     <div class="container" [hidden]="!(i == questionIndex)">
-      <div class="ui one column centered card question">
-        <div class="content">
-          {{question.sentence}}
+      <h4 class="ui horizontal divider header">
+        <i class="Sticky Note Outline icon"></i>
+        Question
+      </h4>
+      <div class="ui two column grid cards">
+        <div class="ui sixteen wide column centered card question">
+          <div class="content">
+            <div class="right floated meta">{{i + 1}}</div>
+          </div>
+          <div class="content">
+            <div class="header">
+              {{question.sentence}}
+            </div>
+          </div>
         </div>
       </div>
+
+      <br />
+
+      <h4 class="ui horizontal divider header">
+        <i class="Write icon"></i>
+        Choices
+      </h4>
+
       <div class="ui two column grid link cards answers">
         <div *ngFor="let answer of question.answers; let answerIndex = index;" class="column">
-          <div class="ui fluid card" (click)="chooseAnswer(answerIndex)">
+          <div class="ui fluid card"
+               [ngClass]="{'olive': answerIndex == 0, 'teal': answerIndex == 1, 'purple': answerIndex == 2, 'pink': answerIndex == 3}"
+               (click)="chooseAnswer(answerIndex); progressUp()">
             <div class="content">
-              {{answer[0]}} {{answer[1]}}
+              <div class="header">
+                {{answer[0]}} {{answer[1]}}
+              </div>
             </div>
           </div>
         </div>
@@ -18,6 +41,14 @@
     </div>
   </div>
 </div>
+
+<br /><br />
+
+<stopwatch></stopwatch>
+
+<br /><br />
+
+<sm-progress [progress]="progress" class="indicating"></sm-progress>
 
 <div *ngIf="resultExam">
   <button smDirTooltip="Tooltip text" smDirPosition="bottom center" class="ui button positive" (click)="modal.show({transition: 'fly down'})">Show modal window</button>
@@ -50,3 +81,5 @@
     </modal-actions>
   </sm-modal>
 </div>
+
+<confirm-dialog></confirm-dialog>
