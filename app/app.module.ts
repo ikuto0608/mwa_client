@@ -9,9 +9,7 @@ import { NgSemanticModule } from "ng-semantic"
 import { DragulaModule } from "ng2-dragula/ng2-dragula"
 
 import { AppComponent }  from './components/app.component'
-import { routing, APP_ROUTER_PROVIDERS } from "./routes"
-
-import { Auth } from "./services/auth"
+import { routing } from "./routes"
 
 import { ExamsComponent } from './components/exams/exams.component'
 import { ExamsIndexComponent } from './components/exams/index.component'
@@ -35,8 +33,6 @@ import { FormatMMSSSSPipe } from './pipes/formatMMSSSS.pipe'
         routing
     ],
     providers: [
-        APP_ROUTER_PROVIDERS,
-        Auth
     ],
     declarations: [
         AppComponent,
