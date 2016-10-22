@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild, ElementRef } from '@angular/core'
 
 @Component({
   selector: 'stopwatch',
@@ -6,22 +6,32 @@ import { Component } from '@angular/core'
   styleUrls: ['app/components/shares/stopwatch.component.css'],
 })
 export class StopwatchComponent {
-  private startTimestamp: Date
+  @ViewChild('stopwatchComponent') stopwatchComponent: StopwatchComponent
+
+  private startTimestamp: any
   private timeMilliseconds: number
   private timeMillisecondsFormatted: string
+  private interval: any
 
   constructor() {
     this.startTimestamp = new Date()
 
-    setInterval(() => {
-      this.timeMilliseconds = this.countTime(this.startTimestamp)
+    this.interval = setInterval(() => {
+      this.timeMilliseconds = this.countTime()
       this.format(this.timeMilliseconds)
     }, 10)
   }
 
-  countTime(startTimestamp: any): number {
+  countTime(): number {
     let now: any = new Date()
-    let diffMilliseconds = now - startTimestamp
+    let diffMilliseconds = now - this.startTimestamp
+    return diffMilliseconds
+  }
+
+  stopTime(): number {
+    let now: any = new Date()
+    let diffMilliseconds = now - this.startTimestamp
+    clearInterval(this.interval)
     return diffMilliseconds
   }
 

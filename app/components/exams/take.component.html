@@ -44,42 +44,41 @@
 
 <br /><br />
 
-<stopwatch></stopwatch>
+<stopwatch #stopwatchComponent></stopwatch>
 
 <br /><br />
 
 <sm-progress [progress]="progress" class="indicating"></sm-progress>
 
-<div *ngIf="resultExam">
-  <button smDirTooltip="Tooltip text" smDirPosition="bottom center" class="ui button positive" (click)="modal.show({transition: 'fly down'})">Show modal window</button>
-  <sm-modal id="result-modal" #modal title="Result">
-    <i class="close icon"></i>
-    <div class="header">
-      Modal Title
-    </div>
-    <modal-content>
-      <div class="ui celled list">
-        <div *ngFor="let topic of resultExam.result_array" class="item">
-          <div *ngIf="topic.correct">
-            <div class="content">
-              <div class="header">Correct</div>
-              {{topic.answer}}
-            </div>
+
+<sm-modal id="result-modal" #resultModal title="Result">
+  <i class="close icon"></i>
+  <div class="header">
+    Modal Title
+  </div>
+  <modal-content>
+    <div *ngIf="resultExam" class="ui relaxed divided list">
+      <div *ngFor="let topic of resultExam.markedTopics; let i = index;" class="item">
+        <i *ngIf="topic.volatileJson.correct" class="big checkmark olive middle aligned icon"></i>
+        <i *ngIf="!topic.volatileJson.correct" class="big remove pink middle aligned icon"></i>
+        <div class="content">
+          <div *ngIf="!topic.volatileJson.correct">
+            <div class="header">Wrong</div>
+             {{topic.sampleAnswered}}
           </div>
-          <div *ngIf="!topic.correct">
-            <div class="content">
-              <div class="header">Wrong</div>
-              {{topic.answer}} -> {{topic.correct_answer}}
-            </div>
-          </div>
+          <div class="header">Correct</div>
+           {{topic.sample}}
+        </div>
+        <div class="right floated content">
+          <div class="ui">{{i + 1}}</div>
         </div>
       </div>
-    </modal-content>
-    <modal-actions>
-      <div class="ui button">Cancel</div>
-      <div class="ui button" (click)="hoge()">OK</div>
-    </modal-actions>
-  </sm-modal>
-</div>
+    </div>
+  </modal-content>
+  <modal-actions>
+    <div class="ui positive basic approve button">OK</div>
+  </modal-actions>
+</sm-modal>
+
 
 <confirm-dialog></confirm-dialog>

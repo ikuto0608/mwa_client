@@ -1,5 +1,5 @@
-import { Component, OnInit, Directive } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { Component, OnInit, Directive, ViewChild, ElementRef } from '@angular/core'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../../models/exam'
@@ -13,12 +13,16 @@ import { ExamService } from '../../services/exam.service'
   providers: [ExamService]
 })
 export class ExamsTakeComponent {
+  @ViewChild('stopwatchComponent') stopwatchComponent: any
+  @ViewChild('resultModal') resultModal: any
+
   public exam: Exam
   public resultExam: Exam
   public questionIndex: number
   public progress: number
+  public resultTime: number
 
-  constructor(private examService: ExamService, private route: ActivatedRoute) {
+  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -34,6 +38,9 @@ export class ExamsTakeComponent {
     this.progress = 0
   }
 
+  ngAfterViewInit() {
+  }
+
   chooseAnswer(answerIndex) {
     this.exam.resultArray = this.exam.resultArray || new Array<Object>()
     this.exam.resultArray.push(
@@ -41,6 +48,7 @@ export class ExamsTakeComponent {
         answer: this.exam.questions[this.questionIndex].answers[answerIndex]
       }
     )
+
     if (this.exam.resultArray.length >= 10) {
       this.sendResult()
     }
@@ -49,11 +57,21 @@ export class ExamsTakeComponent {
   }
 
   sendResult() {
+    let r = this.router
+    this.exam.resultTime = this.stopwatchComponent.stopTime()
+
     this.examService.sendResult(this.exam.toJson())
         .subscribe(
-          data => this.resultExam = data,
+          data => this.resultExam = Exam.toExam(data),
           err => console.log(err),
-          () => console.log('done')
+          () => this.resultModal.show({
+                  inverted: true,
+                  duration: 400,
+                  observeChanges: true,
+                  onApprove: function() {
+                    r.navigate(['/exams'])
+                  },
+                })
         )
   }
 
