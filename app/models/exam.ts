@@ -38,6 +38,9 @@ export class Exam {
     exam.markedTopics.forEach((t, index) => {
       exam.markedTopics[index] = Topic.toTopic(t)
     })
+    exam.topics.forEach((t, index) => {
+      exam.topics[index] = Topic.toTopic(t)
+    })
 
     return Object.assign(exam, json)
   }

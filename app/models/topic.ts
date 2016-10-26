@@ -53,6 +53,8 @@ export class Topic {
 
   static toTopic(json: any): Topic {
     let topic = new Topic()
+    topic.indexArrayOfAnswer = json.index_array_of_answer
+    topic.questionArray =  json.question_array
     return Object.assign(topic, json)
   }
 }

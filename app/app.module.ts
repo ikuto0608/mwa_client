@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home.component'
 import { ExamsComponent } from './components/exams/exams.component'
 import { ExamsIndexComponent } from './components/exams/index.component'
 import { ExamsNewComponent } from './components/exams/new.component'
+import { ExamsEditComponent } from './components/exams/edit.component'
 import { ExamsTakeComponent } from './components/exams/take.component'
 
 import { LoginComponent } from './components/login.component'
@@ -51,6 +52,7 @@ import { FormatMMSSSSPipe } from './pipes/formatMMSSSS.pipe'
         ExamsComponent,
         ExamsIndexComponent,
         ExamsNewComponent,
+        ExamsEditComponent,
         ExamsTakeComponent,
         StopwatchComponent,
         ConfirmModalComponent,

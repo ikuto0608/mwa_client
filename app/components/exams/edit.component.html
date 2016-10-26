@@ -1,0 +1,59 @@
+<div *ngIf="exam" class="ui form segment">
+  <div class="field">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="exam.name" placeholder="name">
+  </div>
+  <div class="field">
+    <label>Category</label>
+    <input type="text" [(ngModel)]="category" placeholder="caterogy">
+  </div>
+  <div class="field">
+    <label>Number of Ansewer</label>
+    <select [(ngModel)]="exam.numberOfAnswer" class="ui fluid dropdown">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+    </select>
+  </div>
+  <div *ngFor="let topic of exam.topics; let indexOfTopicArray = index">
+    <div class="ui form segment">
+      <div class="field">
+        <label>Question{{indexOfTopicArray + 1}}</label>
+        <input [(ngModel)]="topic.question" (ngModelChange)="splitSentence($event, indexOfTopicArray)" type="text" placeholder="question">
+      </div>
+      <div *ngIf="topic.question">
+        <p>Choose the answer.</p>
+        <div class="ui segment {{indexOfTopicArray + 1}}">
+          <button *ngFor="let word of topic.question.split(' '); let indexOfWord = index;"
+                  class="ui basic button color"
+                  [ngClass]="{'blue': !isAnswerSelected(indexOfTopicArray, indexOfWord), 'red': isAnswerSelected(indexOfTopicArray, indexOfWord)}"
+                  [class.selected]="isAnswerSelected(indexOfTopicArray, indexOfWord)"
+                  (click)="setAnswer(indexOfTopicArray, indexOfWord); red = true;">{{word}}</button>
+        </div>
+      </div>
+      <br />
+      <div class="field">
+        <label>Description{{indexOfTopicArray + 1}}</label>
+        <input [(ngModel)]="topic.description" type="text" placeholder="description">
+      </div>
+      <div *ngIf="topic.indexArrayOfAnswer.length > 0">
+        <label>Answer{{indexOfTopicArray + 1}}</label>
+        <div class="ui segment">
+          <button *ngFor="let indexOfAnswer of topic.indexArrayOfAnswer; let indexOfWord = index;"
+                  class="ui red basic button">{{topic.questionArray[indexOfAnswer]}}</button>
+        </div>
+      </div>
+      <div class="ui pink basic button right floated" (click)="deleteTopic(indexOfTopicArray)">Delete</div>
+      <br /><br />
+    </div>
+    <br />
+  </div>
+  <div class="ui basic orange button" (click)="addTopic()">Add</div>
+  <div class="ui basic positive button" (click)="submit()">Submit</div>
+</div>

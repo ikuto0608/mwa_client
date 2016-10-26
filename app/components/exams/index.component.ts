@@ -34,6 +34,10 @@ export class ExamsIndexComponent implements AfterViewInit {
     this.modal = this.confirmModal
   }
 
+  editExam(id: number) {
+    this.router.navigate(['exams/edit/' + id])
+  }
+
   takeExam(id: number) {
     let r = this.router
     this.modal.confirmModal.show({

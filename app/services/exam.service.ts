@@ -18,6 +18,12 @@ export class ExamService {
                .catch(this.handleError)
   }
 
+  show(id: number): Observable<Exam> {
+    return this.http.get(this.examsUrl + id)
+               .map((res) => res.json())
+               .catch(this.handleError)
+  }
+
   find(id: number): Observable<Exam> {
     return this.http.get(this.examsUrl + 'take/' + id)
                .map((res) => res.json())

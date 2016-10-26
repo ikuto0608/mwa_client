@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { ExamsComponent } from './components/exams/exams.component'
 import { ExamsIndexComponent } from './components/exams/index.component'
 import { ExamsNewComponent } from './components/exams/new.component'
+import { ExamsEditComponent } from './components/exams/edit.component'
 import { ExamsTakeComponent } from './components/exams/take.component'
 
 import { HomeComponent } from './components/home.component'
@@ -20,6 +21,7 @@ export const routes: Routes = [
       children: [
         { path: '', component: ExamsIndexComponent },
         { path: 'new', component: ExamsNewComponent, canActivate: [LoggedInGuard] },
+        { path: 'edit/:id', component: ExamsEditComponent },
         { path: 'take/:id', component: ExamsTakeComponent },
       ]
   },

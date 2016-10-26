@@ -29,25 +29,24 @@
       </div>
       <div *ngIf="topic.question">
         <p>Choose the answer.</p>
-        <div class="fields {{indexOfTopicArray + 1}}">
-          <div *ngFor="let word of topic.question.split(' '); let indexOfWord = index;">
-            <button class="ui basic button color"
-                    [ngClass]="{'blue': !isAnswerSelected(indexOfTopicArray, indexOfWord), 'red': isAnswerSelected(indexOfTopicArray, indexOfWord)}"
-                    [class.selected]="isAnswerSelected(indexOfTopicArray, indexOfWord)"
-                    (click)="setAnswer(indexOfTopicArray, indexOfWord); red = true;">{{word}}</button>
-          </div>
+        <div class="ui segment {{indexOfTopicArray + 1}}">
+          <button *ngFor="let word of topic.question.split(' '); let indexOfWord = index;"
+                  class="ui basic button color"
+                  [ngClass]="{'blue': !isAnswerSelected(indexOfTopicArray, indexOfWord), 'red': isAnswerSelected(indexOfTopicArray, indexOfWord)}"
+                  [class.selected]="isAnswerSelected(indexOfTopicArray, indexOfWord)"
+                  (click)="setAnswer(indexOfTopicArray, indexOfWord); red = true;">{{word}}</button>
         </div>
       </div>
+      <br />
       <div class="field">
         <label>Description{{indexOfTopicArray + 1}}</label>
         <input [(ngModel)]="topic.description" type="text" placeholder="description">
       </div>
       <div *ngIf="topic.indexArrayOfAnswer.length > 0">
         <label>Answer{{indexOfTopicArray + 1}}</label>
-        <div class="fields">
-          <div *ngFor="let indexOfAnswer of topic.indexArrayOfAnswer; let indexOfWord = index;">
-            <button class="ui red basic button">{{topic.questionArray[indexOfAnswer]}}</button>
-          </div>
+        <div class="ui segment">
+          <button *ngFor="let indexOfAnswer of topic.indexArrayOfAnswer; let indexOfWord = index;"
+                  class="ui red basic button">{{topic.questionArray[indexOfAnswer]}}</button>
         </div>
       </div>
       <div class="ui pink basic button right floated" (click)="deleteTopic(indexOfTopicArray)">Delete</div>
