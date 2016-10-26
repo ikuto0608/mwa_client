@@ -39,6 +39,15 @@ export class ExamService {
              .map(res => res.json()).subscribe()
   }
 
+  update(id: number, examJson: any) {
+    let body = examJson
+    let headers = new Headers({'Content-Type': 'application/json'})
+    let options = new RequestOptions({headers: headers})
+
+    this.http.post('http://localhost:3000/exams/' + id + '/update', body, options)
+             .map(res => res.json()).subscribe()
+  }
+
   sendResult(examJson: any) {
     let body = examJson
     let headers = new Headers({'Content-Type': 'application/json'})

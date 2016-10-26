@@ -57,7 +57,7 @@ export class ExamsEditComponent {
     return this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord) != -1
   }
 
-  submit() {
-    console.log(this.exam)
+  updateExam() {
+    this.examService.update(this.exam.id, this.exam.toJson())
   }
 }
