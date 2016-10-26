@@ -1,0 +1,13 @@
+<div class="ui equal width form">
+  <div class="fields">
+    <div class="field">
+      <label>Email</label>
+      <input [(ngModel)]="email" name="email" type="text" placeholder="Email">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input [(ngModel)]="password" name="password" type="password">
+    </div>
+  </div>
+  <div class="ui submit button" (click)="onSubmit()">Submit</div>
+</div>

@@ -38,6 +38,26 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="question.description">
+        <br />
+        <h4 class="ui horizontal divider header">
+          <i class="Write icon"></i>
+          Description
+        </h4>
+        <div class="ui two column grid cards">
+          <div class="ui sixteen wide column centered card description">
+            <div class="content">
+              <div class="right floated meta">{{i + 1}}</div>
+            </div>
+            <div class="content">
+              <div class="header">
+                {{question.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

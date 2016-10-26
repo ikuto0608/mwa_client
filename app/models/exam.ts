@@ -25,7 +25,7 @@ export class Exam {
 
     if (this.topics) {
       this.topics.forEach((topic) => {
-        topics.push({ question: topic.question, question_array: topic.questionArray, index_array_of_answer: topic.indexArrayOfAnswer })
+        topics.push({ question: topic.question, description: topic.description, question_array: topic.questionArray, index_array_of_answer: topic.indexArrayOfAnswer })
       })
     }
 
@@ -38,7 +38,7 @@ export class Exam {
     exam.markedTopics.forEach((t, index) => {
       exam.markedTopics[index] = Topic.toTopic(t)
     })
-    
+
     return Object.assign(exam, json)
   }
 }

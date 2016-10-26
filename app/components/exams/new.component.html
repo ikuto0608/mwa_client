@@ -38,6 +38,10 @@
           </div>
         </div>
       </div>
+      <div class="field">
+        <label>Description{{indexOfTopicArray + 1}}</label>
+        <input [(ngModel)]="topic.description" type="text" placeholder="description">
+      </div>
       <div *ngIf="topic.indexArrayOfAnswer.length > 0">
         <label>Answer{{indexOfTopicArray + 1}}</label>
         <div class="fields">
