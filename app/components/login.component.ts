@@ -14,6 +14,7 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
+    console.log(this.password)
     this.userService.login(this.email, this.password)
         .subscribe((result) => {
           if (result) {

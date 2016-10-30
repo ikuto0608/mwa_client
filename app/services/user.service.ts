@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http'
 @Injectable()
 export class UserService {
   private loggedIn = false
-  private loginUrl = 'http://localhost:3000/login/'
+  private loginUrl = 'http://localhost:3000/auth_user/'
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token')
@@ -16,7 +16,7 @@ export class UserService {
 
     return this.http
                .post(this.loginUrl,
-                     JSON.stringify({'user': { 'email': email, 'password': password } }),
+                     JSON.stringify({ 'email': email, 'password': password }),
                      { headers }
                )
                .map((res) => res.json())
@@ -38,4 +38,15 @@ export class UserService {
   isLoggedIn() {
     return this.loggedIn
   }
+
+  getRecords() {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    return this.http.get('/records', { headers })
+               .map(res => res.json())
+  }
+
 }

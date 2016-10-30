@@ -20,7 +20,8 @@ export const routes: Routes = [
       component: ExamsComponent,
       children: [
         { path: '', component: ExamsIndexComponent },
-        { path: 'new', component: ExamsNewComponent, canActivate: [LoggedInGuard] },
+        //{ path: 'new', component: ExamsNewComponent, canActivate: [LoggedInGuard] },
+        { path: 'new', component: ExamsNewComponent },
         { path: 'edit/:id', component: ExamsEditComponent },
         { path: 'take/:id', component: ExamsTakeComponent },
       ]

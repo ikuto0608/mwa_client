@@ -50,7 +50,12 @@ export class ExamService {
 
   sendResult(examJson: any) {
     let body = examJson
-    let headers = new Headers({'Content-Type': 'application/json'})
+    
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
     let options = new RequestOptions({headers: headers})
 
     return this.http.post('http://localhost:3000/exams/result', body, options)
