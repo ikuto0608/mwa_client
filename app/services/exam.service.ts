@@ -13,19 +13,34 @@ export class ExamService {
   }
 
   all(): Observable<Exam[]> {
-    return this.http.get(this.examsUrl)
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    return this.http.get(this.examsUrl, { headers })
                .map((res) => res.json())
                .catch(this.handleError)
   }
 
   show(id: number): Observable<Exam> {
-    return this.http.get(this.examsUrl + id)
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    return this.http.get(this.examsUrl + id, { headers })
                .map((res) => res.json())
                .catch(this.handleError)
   }
 
-  find(id: number): Observable<Exam> {
-    return this.http.get(this.examsUrl + 'take/' + id)
+  take(id: number): Observable<Exam> {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    return this.http.get(this.examsUrl + 'take/' + id, { headers })
                .map((res) => res.json())
                .catch(this.handleError)
   }
@@ -50,7 +65,7 @@ export class ExamService {
 
   sendResult(examJson: any) {
     let body = examJson
-    
+
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
     let authToken = localStorage.getItem('auth_token')

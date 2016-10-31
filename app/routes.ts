@@ -6,25 +6,32 @@ import { ExamsNewComponent } from './components/exams/new.component'
 import { ExamsEditComponent } from './components/exams/edit.component'
 import { ExamsTakeComponent } from './components/exams/take.component'
 
+import { UsersComponent } from './components/users/users.component'
+import { UsersLoginComponent } from './components/users/login.component'
+import { UsersProfileComponent } from './components/users/profile.component'
+
 import { HomeComponent } from './components/home.component'
-import { LoginComponent } from './components/login.component'
+
 //import { ProfileComponent } from './components/profile.component'
 
 import { LoggedInGuard } from './components/shares/logged-in.guard'
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'users', component: UsersComponent, canActivate: [LoggedInGuard],
+    children: [
+      { path: '', component: UsersProfileComponent, canActivate: [LoggedInGuard] },
+    ]
+  },
   //{ path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'exams',
-      component: ExamsComponent,
-      children: [
-        { path: '', component: ExamsIndexComponent },
-        //{ path: 'new', component: ExamsNewComponent, canActivate: [LoggedInGuard] },
-        { path: 'new', component: ExamsNewComponent },
-        { path: 'edit/:id', component: ExamsEditComponent },
-        { path: 'take/:id', component: ExamsTakeComponent },
-      ]
+  { path: 'exams', component: ExamsComponent,
+    children: [
+      { path: '', component: ExamsIndexComponent },
+      //{ path: 'new', component: ExamsNewComponent, canActivate: [LoggedInGuard] },
+      { path: 'new', component: ExamsNewComponent },
+      { path: 'edit/:id', component: ExamsEditComponent },
+      { path: 'take/:id', component: ExamsTakeComponent },
+    ]
   },
 ]
 

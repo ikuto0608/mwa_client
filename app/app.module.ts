@@ -20,7 +20,9 @@ import { ExamsNewComponent } from './components/exams/new.component'
 import { ExamsEditComponent } from './components/exams/edit.component'
 import { ExamsTakeComponent } from './components/exams/take.component'
 
-import { LoginComponent } from './components/login.component'
+import { UsersComponent } from './components/users/users.component'
+import { UsersLoginComponent } from './components/users/login.component'
+import { UsersProfileComponent } from './components/users/profile.component'
 
 import { LoggedInGuard } from './components/shares/logged-in.guard'
 
@@ -58,7 +60,9 @@ import { FormatMMSSSSPipe } from './pipes/formatMMSSSS.pipe'
         ConfirmModalComponent,
         SplitSentencePipe,
         FormatMMSSSSPipe,
-        LoginComponent,
+        UsersComponent,
+        UsersLoginComponent,
+        UsersProfileComponent,
     ],
     bootstrap: [
         AppComponent

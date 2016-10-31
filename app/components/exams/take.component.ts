@@ -27,7 +27,7 @@ export class ExamsTakeComponent {
 
   ngOnInit() {
     let id = +this.route.snapshot.params['id']
-    this.examService.find(id)
+    this.examService.take(id)
         .subscribe(
           data => this.exam = Exam.toExam(data),
           err => console.log(err),

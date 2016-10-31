@@ -1,13 +1,13 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { UserService } from '../services/user.service'
+import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'login',
-  templateUrl: 'app/components/login.component.html'
+  templateUrl: 'app/components/users/login.component.html'
 })
-export class LoginComponent {
+export class UsersLoginComponent {
   public email: string
   public password: string
 

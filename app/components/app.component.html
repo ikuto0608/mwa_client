@@ -1,13 +1,11 @@
 <div class="ui container">
-  <br />
+  <router-outlet></router-outlet>
+
   <div class="ui three item menu">
     <a [routerLink]="['/']" class="item">Home</a>
     <a [routerLink]="['/exams']" class="item">Exams</a>
-    <a [routerLink]="['/login']" class="item">Profile</a>
+    <a [routerLink]="['/users']" class="item">Profile</a>
   </div>
-
-  <router-outlet></router-outlet>
-
 </div>
 <h3 class="ui bottom attached header center aligned brown">
   Memorize with fun

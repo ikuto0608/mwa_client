@@ -5,6 +5,7 @@ import { Http, Headers } from '@angular/http'
 export class UserService {
   private loggedIn = false
   private loginUrl = 'http://localhost:3000/auth_user/'
+  private userUrl = 'http://localhost:3000/users/'
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token')
@@ -46,6 +47,16 @@ export class UserService {
     headers.append('Authorization', `Bearer ${authToken}`)
 
     return this.http.get('/records', { headers })
+               .map(res => res.json())
+  }
+
+  getProfile() {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    return this.http.get(this.userUrl + 'show', { headers })
                .map(res => res.json())
   }
 
