@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Http, Headers } from '@angular/http'
 
+import { User } from '../models/user'
+
 @Injectable()
 export class UserService {
   private loggedIn = false
@@ -58,6 +60,27 @@ export class UserService {
 
     return this.http.get(this.userUrl + 'show', { headers })
                .map(res => res.json())
+  }
+
+  register(user: User) {
+    let body = JSON.stringify({ user: {
+                                  name: user.name,
+                                  email: user.email,
+                                  password: user.password,
+                                  password_confirmation: user.passwordConfirmation
+                              }})
+    let headers = new Headers({'Content-Type': 'application/json'})
+
+    return this.http.post(this.userUrl, body, {headers})
+               .map(res => res.json())
+               .map((res) => {
+                 if (res.success) {
+                   localStorage.setItem('auth_token', res.auth_token)
+                   this.loggedIn = true
+                 }
+
+                 return res.success
+               })
   }
 
 }

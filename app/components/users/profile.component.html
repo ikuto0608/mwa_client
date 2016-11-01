@@ -1,19 +1,22 @@
 <div *ngIf="user">
-  <div class="item">
-    <img class="ui avatar image" src="https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/p100x100/10691_485597818262060_582802800512167884_n.png?oh=361e213f4e697c4395bc4927d23e43ad&oe=58678DE7">
-    <div class="content">
-      <a class="header">{{user.name}}</a>
-      <div class="description">{{user.email}}</div>
-    </div>
-  </div>
-
-  <div *ngFor="let record of user.records" class="ui middle aligned divided list">
+  <div class="ui attached segment">
     <div class="item">
       <img class="ui avatar image" src="https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/p100x100/10691_485597818262060_582802800512167884_n.png?oh=361e213f4e697c4395bc4927d23e43ad&oe=58678DE7">
       <div class="content">
-        <a class="header">{{record.score}} / 10</a>
-        <div class="description">{{record.record_time}}</div>
+        <a class="header">{{user.name}}</a>
+        <div class="description">{{user.email}}</div>
+      </div>
+    </div>
+
+    <div *ngFor="let record of user.records" class="ui middle aligned divided list">
+      <div class="item">
+        <img class="ui avatar image" src="https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/p100x100/10691_485597818262060_582802800512167884_n.png?oh=361e213f4e697c4395bc4927d23e43ad&oe=58678DE7">
+        <div class="content">
+          <a class="header">{{record.score}} / 10</a>
+          <div class="description">{{record.record_time}}</div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="ui bottom attached button" tabindex="0" (click)="logout()">Logout</div>
 </div>

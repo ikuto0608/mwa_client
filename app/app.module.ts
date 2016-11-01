@@ -22,6 +22,7 @@ import { ExamsTakeComponent } from './components/exams/take.component'
 
 import { UsersComponent } from './components/users/users.component'
 import { UsersLoginComponent } from './components/users/login.component'
+import { UsersRegisterComponent } from './components/users/register.component'
 import { UsersProfileComponent } from './components/users/profile.component'
 
 import { LoggedInGuard } from './components/shares/logged-in.guard'
@@ -62,6 +63,7 @@ import { FormatMMSSSSPipe } from './pipes/formatMMSSSS.pipe'
         FormatMMSSSSPipe,
         UsersComponent,
         UsersLoginComponent,
+        UsersRegisterComponent,
         UsersProfileComponent,
     ],
     bootstrap: [

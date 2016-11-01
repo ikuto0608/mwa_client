@@ -1,28 +1,28 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
+import { User } from '../../models/user'
 import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'login',
-  templateUrl: 'app/components/users/login.component.html'
+  templateUrl: 'app/components/users/register.component.html'
 })
-export class UsersLoginComponent {
-  public email: string
-  public password: string
+export class UsersRegisterComponent {
+  public user: User
 
   constructor(private userService: UserService, private router: Router) {}
 
-  login() {
-    this.userService.login(this.email, this.password)
+  ngOnInit() {
+    this.user = new User()
+  }
+
+  register() {
+    this.userService.register(this.user)
         .subscribe((result) => {
           if (result) {
             this.router.navigate([''])
           }
         })
-  }
-
-  goRegister() {
-    this.router.navigate(['users/register'])
   }
 }

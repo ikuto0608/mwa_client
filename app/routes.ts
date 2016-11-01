@@ -8,6 +8,7 @@ import { ExamsTakeComponent } from './components/exams/take.component'
 
 import { UsersComponent } from './components/users/users.component'
 import { UsersLoginComponent } from './components/users/login.component'
+import { UsersRegisterComponent } from './components/users/register.component'
 import { UsersProfileComponent } from './components/users/profile.component'
 
 import { HomeComponent } from './components/home.component'
@@ -17,9 +18,11 @@ import { HomeComponent } from './components/home.component'
 import { LoggedInGuard } from './components/shares/logged-in.guard'
 
 export const routes: Routes = [
-  { path: 'users', component: UsersComponent, canActivate: [LoggedInGuard],
+  { path: 'users', component: UsersComponent,
     children: [
       { path: '', component: UsersProfileComponent, canActivate: [LoggedInGuard] },
+      { path: 'login', component: UsersLoginComponent },
+      { path: 'register', component: UsersRegisterComponent },
     ]
   },
   //{ path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },

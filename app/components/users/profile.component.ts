@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { UserService } from '../../services/user.service'
 import { User } from '../../models/user'
@@ -10,7 +11,7 @@ import { User } from '../../models/user'
 export class UsersProfileComponent {
   public user: User
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.getProfile()
@@ -19,5 +20,10 @@ export class UsersProfileComponent {
           err => console.log(err),
           () => console.log('done')
         )
+  }
+
+  logout() {
+    this.userService.logout()
+    this.router.navigate(['/'])
   }
 }
