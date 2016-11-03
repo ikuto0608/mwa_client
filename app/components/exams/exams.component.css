@@ -1,0 +1,6 @@
+.ui.segment {
+}
+
+.ui.positive.active.button, .ui.positive.button .active.button:active, .ui.positive.buttons .active.button, .ui.positive.buttons .active.button:active {
+  background-color: #86C166;
+}

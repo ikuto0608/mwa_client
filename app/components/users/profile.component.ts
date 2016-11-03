@@ -7,6 +7,7 @@ import { User } from '../../models/user'
 @Component({
   selector: 'profile',
   templateUrl: 'app/components/users/profile.component.html',
+  styleUrls: ['app/components/users/users.component.css'],
 })
 export class UsersProfileComponent {
   public user: User

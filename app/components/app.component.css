@@ -1,0 +1,15 @@
+.ui.attached.header {
+  background-color: #F1F9F0;
+}
+
+.ui.three.item.menu {
+  background-color: #86C166;
+}
+
+a.item {
+  color: white !important;
+}
+
+.ui.menu {
+  border: none;
+}

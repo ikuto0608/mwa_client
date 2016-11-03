@@ -7,6 +7,7 @@ import { ExamService } from '../../services/exam.service'
 @Component({
   selector: 'exams-index',
   templateUrl: 'app/components/exams/index.component.html',
+  styleUrls: ['app/components/exams/exams.component.css'],
   providers: [ExamService],
 })
 export class ExamsIndexComponent implements AfterViewInit {
