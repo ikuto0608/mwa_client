@@ -1,23 +1,25 @@
 import { Topic } from './topic'
 import { Question } from './question'
+import { Category } from './category'
 
 export class Exam {
   public id: number
   public name: string
   public userId: number
-  public categoryId: number
   public numberOfAnswer: number
   public topics: Array<Topic>
   public markedTopics: Array<Topic>
   public questions: Array<Question>
   public resultArray: Array<Object>
   public resultTime: number
+  public categoryArray: Array<Category>
 
   constructor() {
     this.topics = new Array<Topic>()
     this.markedTopics = new Array<Topic>()
     this.questions = new Array<Question>()
     this.resultArray = new Array<Object>()
+    this.categoryArray = new Array<Category>()
   }
 
   toJson(): any {
@@ -29,7 +31,7 @@ export class Exam {
       })
     }
 
-    return JSON.stringify({exam: { id: this.id, name: this.name, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
+    return JSON.stringify({exam: { id: this.id, name: this.name, tags_attributes: this.categoryArray, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
   }
 
   static toExam(json: any): Exam {

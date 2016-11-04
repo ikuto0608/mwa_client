@@ -48,6 +48,9 @@ export class ExamService {
   save(examJson: any) {
     let body = examJson
     let headers = new Headers({'Content-Type': 'application/json'})
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
     let options = new RequestOptions({headers: headers})
 
     this.http.post('http://localhost:3000/exams', body, options)
@@ -57,6 +60,9 @@ export class ExamService {
   update(id: number, examJson: any) {
     let body = examJson
     let headers = new Headers({'Content-Type': 'application/json'})
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
     let options = new RequestOptions({headers: headers})
 
     this.http.post('http://localhost:3000/exams/' + id + '/update', body, options)

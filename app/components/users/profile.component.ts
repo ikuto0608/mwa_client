@@ -27,4 +27,12 @@ export class UsersProfileComponent {
     this.userService.logout()
     this.router.navigate(['/'])
   }
+
+  format(timeMilliseconds: any) {
+    var timeMillisecondsFormatted = timeMilliseconds.toString()
+    while (timeMillisecondsFormatted.length < 6) {
+      timeMillisecondsFormatted = "0" + timeMillisecondsFormatted
+    }
+    return timeMillisecondsFormatted
+  }
 }

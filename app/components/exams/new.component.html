@@ -1,12 +1,22 @@
-<div class="ui form segment">
+<div class="ui form">
   <div class="field">
     <label>Name</label>
     <input type="text" [(ngModel)]="exam.name" placeholder="name">
   </div>
   <div class="field">
     <label>Category</label>
-    <input type="text" [(ngModel)]="category" placeholder="caterogy">
+    <input [(ngModel)]="category" (ngModelChange)="splitCategoryArray($event)" (blur)="pushCategory()" type="text" placeholder="category">
   </div>
+  <div *ngIf="exam.categoryArray">
+    <div class="ui">
+      <div *ngFor="let category of exam.categoryArray; let indexOfCategory = index;" class="ui tiny label orange color">
+        {{category.name}}
+        <i class="delete icon" (click)="deleteCategory(indexOfCategory)"></i>
+      </div>
+
+    </div>
+  </div>
+
   <div class="field">
     <label>Number of Ansewer</label>
     <select [(ngModel)]="exam.numberOfAnswer" class="ui fluid dropdown">
@@ -48,7 +58,13 @@
           <button *ngFor="let indexOfAnswer of topic.indexArrayOfAnswer; let indexOfWord = index;"
                   class="ui red basic button">{{topic.questionArray[indexOfAnswer]}}</button>
         </div>
+        <div *ngIf="topic.indexArrayOfAnswer.length != exam.numberOfAnswer">
+          <div class="ui floating negative message">
+            <p>Choose {{exam.numberOfAnswer}} Answer!</p>
+          </div>
+        </div>
       </div>
+      <br />
       <div class="ui pink basic button right floated" (click)="deleteTopic(indexOfTopicArray)">Delete</div>
       <br /><br />
     </div>
@@ -57,3 +73,5 @@
   <div class="ui basic orange button" (click)="addTopic()">Add</div>
   <div class="ui basic positive button" (click)="createTopics()">Submit</div>
 </div>
+
+<confirm-dialog #confirmModal [contentHash]="contentHash"></confirm-dialog>

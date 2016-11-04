@@ -10,8 +10,8 @@ export class ConfirmModalComponent {
   @ViewChild('confirmModal') confirmModal: ElementRef
   @Input() contentHash: any
 
-  private title: string
-  private message: string
+  public title: string
+  public message: string
 
   constructor() {
     let contentHash = this.contentHash || {}

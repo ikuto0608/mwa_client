@@ -32,7 +32,13 @@
                (click)="chooseAnswer(answerIndex); progressUp()">
             <div class="content">
               <div class="header">
-                {{answer[0]}} {{answer[1]}}
+                <div *ngFor="let a of answer" class="ui horizontal list">
+                  <div class="item">
+                    <div class="content">
+                      {{a}}&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
