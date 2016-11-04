@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../../models/exam'
+import { Tag } from '../../models/tag'
 import { Topic } from '../../models/topic'
 import { ExamService } from '../../services/exam.service'
 
@@ -13,10 +14,9 @@ import { ExamService } from '../../services/exam.service'
 })
 export class ExamsEditComponent {
   public exam: Exam
-  public category: any
+  public tag: string
 
   constructor(private examService: ExamService, private route: ActivatedRoute) {
-
   }
 
   ngOnInit() {
@@ -59,5 +59,28 @@ export class ExamsEditComponent {
 
   updateExam() {
     this.examService.update(this.exam.id, this.exam.toJson())
+  }
+
+  splitTags(value: string) {
+    if (this.tag.indexOf(' ') !== -1) {
+      let tag = new Tag()
+      tag.name = this.tag.split(' ')[0]
+      this.exam.tags.push(tag)
+      this.tag = ""
+    }
+  }
+
+  pushTag() {
+    if (typeof(this.tag) == "undefined" || this.tag == "") {
+      return
+    }
+    let tag = new Tag()
+    tag.name = this.tag.split(' ')[0]
+    this.exam.tags.push(tag)
+    this.tag = ""
+  }
+
+  deleteTag(indexOfTag: number) {
+    this.exam.tags.splice(indexOfTag, 1)
   }
 }

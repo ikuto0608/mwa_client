@@ -4,8 +4,16 @@
     <input type="text" [(ngModel)]="exam.name" placeholder="name">
   </div>
   <div class="field">
-    <label>Category</label>
-    <input type="text" [(ngModel)]="category" placeholder="caterogy">
+    <label>Tag</label>
+    <input [(ngModel)]="tag" (ngModelChange)="splitTags($event)" (blur)="pushTag()" type="text" placeholder="tag">
+  </div>
+  <div *ngIf="exam.tags">
+    <div class="ui">
+      <div *ngFor="let tag of exam.tags; let indexOfTag = index;" class="ui tiny label orange color">
+        {{tag.name}}
+        <i class="delete icon" (click)="deleteTag(indexOfTag)"></i>
+      </div>
+    </div>
   </div>
   <div class="field">
     <label>Number of Ansewer</label>

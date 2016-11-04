@@ -1,6 +1,6 @@
 import { Topic } from './topic'
 import { Question } from './question'
-import { Category } from './category'
+import { Tag } from './tag'
 
 export class Exam {
   public id: number
@@ -12,14 +12,14 @@ export class Exam {
   public questions: Array<Question>
   public resultArray: Array<Object>
   public resultTime: number
-  public categoryArray: Array<Category>
+  public tags: Array<Tag>
 
   constructor() {
     this.topics = new Array<Topic>()
     this.markedTopics = new Array<Topic>()
     this.questions = new Array<Question>()
     this.resultArray = new Array<Object>()
-    this.categoryArray = new Array<Category>()
+    this.tags = new Array<Tag>()
   }
 
   toJson(): any {
@@ -31,7 +31,7 @@ export class Exam {
       })
     }
 
-    return JSON.stringify({exam: { id: this.id, name: this.name, tags_attributes: this.categoryArray, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
+    return JSON.stringify({exam: { id: this.id, name: this.name, tags_attributes: this.tags, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
   }
 
   static toExam(json: any): Exam {
@@ -42,6 +42,9 @@ export class Exam {
     })
     exam.topics.forEach((t, index) => {
       exam.topics[index] = Topic.toTopic(t)
+    })
+    exam.tags.forEach((tag, index) => {
+      exam.tags[index] = Tag.toTag(tag)
     })
 
     return Object.assign(exam, json)

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
 
-import { Category } from '../../models/category'
 import { Exam } from '../../models/exam'
+import { Tag } from '../../models/tag'
 import { Topic } from '../../models/topic'
 import { ExamService } from '../../services/exam.service'
 
@@ -14,7 +14,7 @@ import { ExamService } from '../../services/exam.service'
 export class ExamsNewComponent implements AfterViewInit {
   @ViewChild('confirmModal') confirmModal: ElementRef
 
-  public category: string
+  public tag: string
   public exam: Exam
   public modal: any
 
@@ -90,26 +90,26 @@ export class ExamsNewComponent implements AfterViewInit {
     return this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord) != -1
   }
 
-  splitCategoryArray(value: string) {
-    if (this.category.indexOf(' ') !== -1) {
-      let category = new Category()
-      category.name = this.category.split(' ')[0]
-      this.exam.categoryArray.push(category)
-      this.category = ""
+  splitTags(value: string) {
+    if (this.tag.indexOf(' ') !== -1) {
+      let tag = new Tag()
+      tag.name = this.tag.split(' ')[0]
+      this.exam.tags.push(tag)
+      this.tag = ""
     }
   }
 
-  pushCategory() {
-    if (typeof(this.category) == "undefined" || this.category == "") {
+  pushTag() {
+    if (typeof(this.tag) == "undefined" || this.tag == "") {
       return
     }
-    let category = new Category()
-    category.name = this.category.split(' ')[0]
-    this.exam.categoryArray.push(category)
-    this.category = ""
+    let tag = new Tag()
+    tag.name = this.tag.split(' ')[0]
+    this.exam.tags.push(tag)
+    this.tag = ""
   }
 
-  deleteCategory(indexOfCategory: number) {
-    this.exam.categoryArray.splice(indexOfCategory, 1)
+  deleteTag(indexOfTag: number) {
+    this.exam.tags.splice(indexOfTag, 1)
   }
 }

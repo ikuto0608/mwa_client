@@ -40,6 +40,8 @@ export class ExamsIndexComponent implements AfterViewInit {
   }
 
   takeExam(id: number) {
+    console.log(this.examArray[0])
+    
     let r = this.router
     this.modal.confirmModal.show({
       inverted: true,

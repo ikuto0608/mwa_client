@@ -4,16 +4,15 @@
     <input type="text" [(ngModel)]="exam.name" placeholder="name">
   </div>
   <div class="field">
-    <label>Category</label>
-    <input [(ngModel)]="category" (ngModelChange)="splitCategoryArray($event)" (blur)="pushCategory()" type="text" placeholder="category">
+    <label>Tag</label>
+    <input [(ngModel)]="tag" (ngModelChange)="splitTags($event)" (blur)="pushTag()" type="text" placeholder="tag">
   </div>
-  <div *ngIf="exam.categoryArray">
+  <div *ngIf="exam.tags">
     <div class="ui">
-      <div *ngFor="let category of exam.categoryArray; let indexOfCategory = index;" class="ui tiny label orange color">
-        {{category.name}}
-        <i class="delete icon" (click)="deleteCategory(indexOfCategory)"></i>
+      <div *ngFor="let tag of exam.tags; let indexOfTag = index;" class="ui tiny label orange color">
+        {{tag.name}}
+        <i class="delete icon" (click)="deleteTag(indexOfTag)"></i>
       </div>
-
     </div>
   </div>
 
