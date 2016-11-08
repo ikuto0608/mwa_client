@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../models/exam'
@@ -19,6 +19,20 @@ export class ExamService {
     headers.append('Authorization', `Bearer ${authToken}`)
 
     return this.http.get(this.examsUrl, { headers })
+               .map((res) => res.json())
+               .catch(this.handleError)
+  }
+
+  searchByTags(tags: any): Observable<Exam[]> {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let authToken = localStorage.getItem('auth_token')
+    headers.append('Authorization', `Bearer ${authToken}`)
+
+    let params: URLSearchParams = new URLSearchParams()
+    params.set('tag', tags.toString())
+
+    return this.http.get(this.examsUrl + 'search', { search: params, headers: headers })
                .map((res) => res.json())
                .catch(this.handleError)
   }

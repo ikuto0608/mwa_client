@@ -81,6 +81,7 @@ export class ExamsNewComponent implements AfterViewInit {
     var index = this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.indexOf(indexOfWord)
     if (index < 0) {
       this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.push(indexOfWord)
+      this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.sort()
     } else {
       this.exam.topics[indexOfTopicArray].indexArrayOfAnswer.splice(index, 1)
     }

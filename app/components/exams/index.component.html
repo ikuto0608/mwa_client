@@ -1,9 +1,24 @@
+<sm-search placeholder="Search..." (onSearch)="searchTags($event)" [icon]="true"></sm-search>
+
+<div class="ui middle aligned divided list">
+  <div class="item" *ngFor="let tagName of tagNameArray" (click)="chooseTag(tagName)">
+    <div class="content">
+      <a class="header">{{tagName}}</a>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let keyword of searchKeywords" class="ui tiny orange tag label">
+  {{keyword}}
+  <i class="delete icon" (click)="deleteSearchTag(keyword)"></i>
+</div>
+
 <div *ngFor="let exam of examArray" class="ui middle aligned divided list">
   <div class="item">
     <div class="content">
-      <a class="ui olive circular label">{{exam.name[0] || uppercase}}</a>
+      <div class="ui olive circular label">{{exam.name[0] || uppercase}}</div>
       {{exam.name}}&nbsp;&nbsp;
-      <a *ngFor="let tag of exam.tags" class="ui tiny teal tag label">{{tag.name}}</a>
+      <div *ngFor="let tag of exam.tags" class="ui tiny teal tag label">{{tag.name}}</div>
       <div class="ui small right floated buttons">
         <button (click)="takeExam(exam.id)" class="ui button active positive">Test</button>
         <div class="or"></div>
