@@ -3,10 +3,11 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 
 import { Tag } from '../models/tag'
+import { Config } from '../config'
 
 @Injectable()
 export class TagService {
-  private tagsUrl = 'http://localhost:3000/tags/'
+  private tagsUrl = Config.apiUrl + 'tags/'
 
   constructor(public http: Http) {
 

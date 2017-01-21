@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core'
 import { Http, Headers } from '@angular/http'
 
 import { User } from '../models/user'
+import { Config } from '../config'
 
 @Injectable()
 export class UserService {
   private loggedIn = false
-  private loginUrl = 'http://localhost:3000/auth_user/'
-  private userUrl = 'http://localhost:3000/users/'
+  private loginUrl = Config.apiUrl + 'auth_user/'
+  private userUrl = Config.apiUrl + 'users/'
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token')

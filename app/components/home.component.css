@@ -5,3 +5,8 @@
 .content {
   color: #86C166;
 }
+
+.logo {
+  margin: 0 auto;
+  right: 3px;
+}

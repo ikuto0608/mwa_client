@@ -3,10 +3,11 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { Observable } from 'rxjs/Observable'
 
 import { Exam } from '../models/exam'
+import { Config } from '../config'
 
 @Injectable()
 export class ExamService {
-  private examsUrl = 'http://localhost:3000/exams/'
+  private examsUrl = Config.apiUrl + 'exams/'
 
   constructor(public http: Http) {
 
