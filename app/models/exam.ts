@@ -7,6 +7,7 @@ export class Exam {
   public name: string
   public userId: number
   public numberOfAnswer: number
+  public description: string;
   public topics: Array<Topic>
   public markedTopics: Array<Topic>
   public questions: Array<Question>
@@ -27,11 +28,11 @@ export class Exam {
 
     if (this.topics) {
       this.topics.forEach((topic) => {
-        topics.push({ question: topic.question, description: topic.description, question_array: topic.questionArray, index_array_of_answer: topic.indexArrayOfAnswer })
+        topics.push({ id: topic.id, question: topic.question, description: topic.description, question_array: topic.questionArray, index_array_of_answer: topic.indexArrayOfAnswer })
       })
     }
 
-    return JSON.stringify({exam: { id: this.id, name: this.name, tags_attributes: this.tags, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
+    return JSON.stringify({exam: { id: this.id, name: this.name, number_of_answer: this.numberOfAnswer, description: this.description, tags_attributes: this.tags, topics_attributes: topics, result_array: this.resultArray, result_time: this.resultTime }})
   }
 
   static toExam(json: any): Exam {

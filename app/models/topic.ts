@@ -48,7 +48,7 @@ export class Topic {
   }
 
   toJson(): any {
-    return JSON.stringify({exam: { id: this.id, question: this.question, description: this.description, question_array: this.questionArray, index_array_of_answer: this.indexArrayOfAnswer, user_id: this.userId, exam_id: this.examId }})
+    return JSON.stringify({topic: { id: this.id, question: this.question, description: this.description, question_array: this.questionArray, index_array_of_answer: this.indexArrayOfAnswer, user_id: this.userId, exam_id: this.examId }})
   }
 
   static toTopic(json: any): Topic {

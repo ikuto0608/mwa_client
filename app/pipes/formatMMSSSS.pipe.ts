@@ -2,8 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({name: 'formatMMSSSS'})
 export class FormatMMSSSSPipe implements PipeTransform {
-  transform(mmssss: number): string {
-    let minutes = parseInt(mmssss / 60000);
+  transform(mmssss: number = 0): string {
+    let minutes = parseInt(String(mmssss / 60000));
     let millisecond = mmssss - (60000 * minutes)
 
     let minutesString = "00".substring(0, 2 - String(minutes).length) + String(minutes)
