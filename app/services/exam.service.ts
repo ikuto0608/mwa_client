@@ -68,7 +68,7 @@ export class ExamService {
     headers.append('Authorization', `Bearer ${authToken}`)
     let options = new RequestOptions({headers: headers})
 
-    this.http.post('http://localhost:3000/exams', body, options)
+    this.http.post(this.examsUrl, body, options)
              .map(res => res.json()).subscribe()
   }
 
@@ -80,7 +80,7 @@ export class ExamService {
     headers.append('Authorization', `Bearer ${authToken}`)
     let options = new RequestOptions({headers: headers})
 
-    this.http.post('http://localhost:3000/exams/' + id + '/update', body, options)
+    this.http.post(this.examsUrl + id + '/update', body, options)
              .map(res => res.json()).subscribe()
   }
 
@@ -94,7 +94,7 @@ export class ExamService {
 
     let options = new RequestOptions({headers: headers})
 
-    return this.http.post('http://localhost:3000/exams/result', body, options)
+    return this.http.post(this.examsUrl + 'result', body, options)
                .map(res => res.json())
                .catch(this.handleError)
   }
