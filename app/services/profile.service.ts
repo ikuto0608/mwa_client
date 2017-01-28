@@ -13,7 +13,8 @@ export class ProfileService {
     let authToken = localStorage.getItem('auth_token')
     headers.append('Authorization', `Bearer ${authToken}`)
 
-    return this.http.get('/profile', { headers })
+    return this.http
+               .get('/profile', { headers })
                .map(res => res.json())
   }
 }

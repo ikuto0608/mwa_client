@@ -1,4 +1,4 @@
-<sm-search placeholder="Search..." (onSearch)="searchTags($event)" [icon]="true"></sm-search>
+<sm-search placeholder="Search..." (onSearch)="searchBytag($event)" [icon]="true"></sm-search>
 
 <div class="ui middle aligned divided list">
   <div class="item" *ngFor="let tagName of tagNameArray" (click)="chooseTag(tagName)">

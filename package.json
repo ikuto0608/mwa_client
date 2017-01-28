@@ -10,10 +10,6 @@
     "typings": "typings install",
     "bundle:prod": "node builder.js --prod"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vladotesanovic/angular2-quickstart-ngsemantic"
-  },
   "license": "MIT",
   "dependencies": {
     "core-js": "^2.4.1",

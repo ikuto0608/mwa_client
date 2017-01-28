@@ -29,35 +29,19 @@ export class ExamsIndexComponent implements OnInit, AfterViewInit {
     private tagService: TagService,
     private router: Router) {}
 
-  ngOnInit() {
-    this.examArray = new Array<Exam>()
-    this.searchKeywords = new Array<string>()
-
-    this.examService.all()
-        .subscribe(
-          data => this.examArray = data,
-          err => console.log(err),
-          () => console.log('done')
-        )
-
-    this.tags = this.searchTerms
-                    .debounceTime(300)
-                    .distinctUntilChanged()
-                    .switchMap(term => {
-                      if (term) {
-                        return this.tagService.search(term)
-                      } else {
-                        return []
-                      }
-                    })
-                    .catch(error => {
-                      console.log(error)
-                      return []
-                    })
-  }
+    ngOnInit() {
+      this.examService
+          .all()
+          .subscribe(
+            (data) => this.examArray = data,
+            (err) => console.log(err),
+            () => 'done'
+          )
+    }
 
   ngAfterViewInit() {
-    this.modal = this.confirmModal
+    this.modal = this.confirmModal;
+    this.search("");
   }
 
   editExam(id: number) {
@@ -82,6 +66,26 @@ export class ExamsIndexComponent implements OnInit, AfterViewInit {
     this.searchTerms.next(term)
   }
 
+  searchBytag(term: string) {
+    if (term == "") {
+      this.examService
+          .all()
+          .subscribe(
+            (data) => this.examArray = data,
+            (err) => console.log(err),
+            () => 'done'
+          )
+    } else {
+      this.examService
+          .searchByTag(term)
+          .subscribe(
+            (data) => this.examArray = data,
+            (err) => console.log(err),
+            () => console.log('done')
+          )
+    }
+  }
+
   searchTags(term: string) {
     this.tagService
         .search(term)
@@ -90,7 +94,7 @@ export class ExamsIndexComponent implements OnInit, AfterViewInit {
 
   chooseTag(tagname: string) {
     this.searchKeywords.push(tagname)
-    
+
     this.examService
         .searchByTags(this.searchKeywords)
         .subscribe(

@@ -24,6 +24,24 @@ export class ExamService {
                .catch(this.handleError)
   }
 
+  searchByTag(term: string): any {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let authToken = localStorage.getItem('auth_token');
+    headers.append('Authorization', `Bearer ${authToken}`);
+
+    return this.http
+               .get(this.examsUrl + "search_by_tag?term=" + term, { headers })
+               .map(res => {
+                 this.isLoading = false;
+                 return res.json();
+               })
+               .catch(err => {
+                 this.isLoading = false;
+                 return this.handleErrors(err);
+               });
+  }
+
   searchByTags(tags: any): Observable<Exam[]> {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')

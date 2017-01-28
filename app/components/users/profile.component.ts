@@ -17,9 +17,9 @@ export class UsersProfileComponent {
   ngOnInit() {
     this.userService.getProfile()
         .subscribe(
-          data => this.user = User.toUser(data),
+          data => this.user = User.toUser(data.user),
           err => console.log(err),
-          () => console.log('done')
+          () => console.log(this.user)
         )
   }
 
