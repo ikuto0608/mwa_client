@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { UserService } from '../../services/user.service'
-import { User } from '../../models/user'
+import { UserService } from "../../services/user.service";
+import { User } from "../../models/user";
 
 @Component({
-  selector: 'profile',
-  templateUrl: 'app/components/users/profile.component.html',
-  styleUrls: ['app/components/users/users.component.css'],
+  selector: "profile",
+  templateUrl: "app/components/users/profile.component.html",
+  styleUrls: ["app/components/users/users.component.css"],
 })
 export class UsersProfileComponent {
-  public user: User
+  public user: User;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -19,20 +19,20 @@ export class UsersProfileComponent {
         .subscribe(
           data => this.user = User.toUser(data.user),
           err => console.log(err),
-          () => console.log(this.user)
-        )
+          () => console.log('done')
+        );
   }
 
   logout() {
-    this.userService.logout()
-    this.router.navigate(['/'])
+    this.userService.logout();
+    this.router.navigate(["/"]);
   }
 
   format(timeMilliseconds: any) {
-    var timeMillisecondsFormatted = timeMilliseconds.toString()
+    let timeMillisecondsFormatted = timeMilliseconds.toString();
     while (timeMillisecondsFormatted.length < 6) {
-      timeMillisecondsFormatted = "0" + timeMillisecondsFormatted
+      timeMillisecondsFormatted = "0" + timeMillisecondsFormatted;
     }
-    return timeMillisecondsFormatted
+    return timeMillisecondsFormatted;
   }
 }

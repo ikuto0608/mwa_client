@@ -51,13 +51,13 @@
         <label>Description{{indexOfTopicArray + 1}}</label>
         <input [(ngModel)]="topic.description" type="text" placeholder="description">
       </div>
-      <div *ngIf="topic.indexArrayOfAnswer.length > 0">
+      <div *ngIf="topic.indexOfAnswerArray.length > 0">
         <label>Answer{{indexOfTopicArray + 1}}</label>
         <div class="ui segment">
-          <button *ngFor="let indexOfAnswer of topic.indexArrayOfAnswer; let indexOfWord = index;"
+          <button *ngFor="let indexOfAnswer of topic.indexOfAnswerArray; let indexOfWord = index;"
                   class="ui red basic button">{{topic.questionArray[indexOfAnswer]}}</button>
         </div>
-        <div *ngIf="topic.indexArrayOfAnswer.length != exam.numberOfAnswer">
+        <div *ngIf="topic.indexOfAnswerArray.length != exam.numberOfAnswer">
           <div class="ui floating negative message">
             <p>Choose {{exam.numberOfAnswer}} Answer!</p>
           </div>

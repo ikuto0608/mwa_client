@@ -1,15 +1,15 @@
-import { Component } from '@angular/core'
-import { Router } from '@angular/router'
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { UserService } from '../../services/user.service'
+import { UserService } from "../../services/user.service";
 
 @Component({
-  selector: 'login',
-  templateUrl: 'app/components/users/login.component.html'
+  selector: "login",
+  templateUrl: "app/components/users/login.component.html"
 })
 export class UsersLoginComponent {
-  public email: string
-  public password: string
+  public email: string;
+  public password: string;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -17,12 +17,12 @@ export class UsersLoginComponent {
     this.userService.login(this.email, this.password)
         .subscribe((result) => {
           if (result) {
-            this.router.navigate([''])
+            this.router.navigate([""]);
           }
-        })
+        });
   }
 
   goRegister() {
-    this.router.navigate(['users/register'])
+    this.router.navigate(["users/register"]);
   }
 }

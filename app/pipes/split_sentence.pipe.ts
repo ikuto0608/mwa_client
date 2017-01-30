@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from "@angular/core";
 
-@Pipe({name: 'splitSentence'})
+@Pipe({name: "splitSentence"})
 export class SplitSentencePipe implements PipeTransform {
   transform(sentence: string): Array<string> {
-    return sentence.split(' ')
+    return sentence.split(" ");
   }
 }
