@@ -1,74 +1,103 @@
-const gulp = require("gulp");
-const del = require("del");
-const typescript = require("gulp-typescript");
-const tscConfig = require("./tsconfig.json");
-const sourcemaps = require("gulp-sourcemaps");
-const tslint = require("gulp-tslint");
-const browserSync = require("browser-sync");
-const reload = browserSync.reload;
-const tsconfig = require("tsconfig-glob");
+var gulp = require('gulp');
+var shell = require('gulp-shell');
+var clean = require('gulp-clean');
+var htmlreplace = require('gulp-html-replace');
+var runSequence = require('run-sequence');
+var Builder = require('systemjs-builder');
+var builder = new Builder('', 'systemjs.config.js');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 
-// clean the contents of the distribution directory
-gulp.task("clean", function () {
-  return del("dist/**/*");
+var bundleHash = new Date().getTime();
+var mainBundleName = bundleHash + '.main.bundle.js';
+var vendorBundleName = bundleHash + '.vendor.bundle.js';
+var minMainBundleName = bundleHash + '.main.bundle.min.js';
+var minVendorBundleName = bundleHash + '.vendor.bundle.min.js';
+
+// This is main task for production use
+gulp.task('dist', function(done) {
+    runSequence('clean', 'compile_ts', 'bundle', 'minify:app:js', 'minify:vendor:js', 'del:app:js', 'del:vendor:js', 'copy_assets', function() {
+        done();
+    });
 });
 
-// copy static assets - i.e. non TypeScript compiled source
-gulp.task("copy:assets", ["clean"], function() {
-  return gulp.src(["app/**/*", "index.html", "index.css", "!app/**/*.ts"], { base : "./" })
-    .pipe(gulp.dest("dist"))
+gulp.task('bundle', ['bundle:vendor', 'bundle:app'], function () {
+    return gulp.src(['index.html', 'index.css'])
+        .pipe(htmlreplace({
+            'app': minMainBundleName,
+            'vendor': minVendorBundleName
+        }))
+        .pipe(gulp.dest('./dist'));
 });
 
-// copy dependencies
-gulp.task("copy:libs", ["clean"], function() {
-  return gulp.src([
-      "node_modules/core-js/client/shim.min.js",
-      "node_modules/zone.js/dist/zone.js",
-      "node_modules/reflect-metadata/Reflect.js",
-      "node_modules/systemjs/dist/system.src.js"
-    ])
-    .pipe(gulp.dest("dist/lib"))
+gulp.task('bundle:vendor', function () {
+    return builder
+        .buildStatic('app/vendor.js', './dist/' + vendorBundleName)
+        .catch(function (err) {
+            console.log('Vendor bundle error');
+            console.log(err);
+        });
 });
 
-// linting
-gulp.task("tslint", function() {
-  return gulp.src("app/**/*.ts")
-    .pipe(tslint({
-      formatter: "verbose"
-    }))
-    .pipe(tslint.report());
-});
-
-
-// TypeScript compile
-gulp.task("compile", ["clean"], function () {
+// Minify JS bundle
+gulp.task('minify:vendor:js', function() {
   return gulp
-    .src("app/**/*.ts")
-    .pipe(sourcemaps.init())
-    .pipe(typescript(tscConfig.compilerOptions))
-    .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest("dist/app"));
+    .src('./dist/' + vendorBundleName)
+    .pipe(concat(minVendorBundleName))
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/'));
 });
 
-// update the tsconfig files based on the glob pattern
-gulp.task("tsconfig-glob", function () {
-  return tsconfig({
-    configPath: ".",
-    indent: 2
-  });
+gulp.task('del:vendor:js', function() {
+  return gulp.src('./dist/' + vendorBundleName, {read: false})
+      .pipe(clean());
 });
 
-// Run browsersync for development
-gulp.task("serve", ["build"], function() {
-  browserSync({
-    server: {
-      baseDir: "dist"
-    }
-  });
-
-  gulp.watch(["app/**/*", "index.html", "styles.css"], ["buildAndReload"]);
+gulp.task('bundle:app', function () {
+    return builder
+        .buildStatic('app/main.js', './dist/' + mainBundleName)
+        .catch(function (err) {
+            console.log('App bundle error');
+            console.log(err);
+        });
 });
 
-gulp.task("build", ["tslint", "compile", "copy:libs", "copy:assets"]);
-gulp.task("buildAndReload", ["build"], reload);
-gulp.task("default", ["build"]);
+// Minify JS bundle
+gulp.task('minify:app:js', function() {
+  return gulp
+    .src('./dist/' + mainBundleName)
+    .pipe(concat(minMainBundleName))
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('del:app:js', function() {
+  return gulp.src('./dist/' + mainBundleName, {read: false})
+      .pipe(clean());
+});
+
+gulp.task('compile_ts', ['clean:ts'], shell.task([
+    'tsc'
+]));
+
+gulp.task('copy_assets', function() {
+     return gulp.src(['./app/**/*.css', './app/**/*.html', './app/**/*.png'])
+        .pipe(gulp.dest('./dist/app'));
+});
+
+gulp.task('copy_css', function() {
+     return gulp.src(['index.css'])
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('clean', ['clean:ts', 'clean:dist']);
+
+gulp.task('clean:dist', function () {
+    return gulp.src(['./dist'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('clean:ts', function () {
+    return gulp.src(['./app/**/*.js', './app/**/*.js.map'], {read: false})
+        .pipe(clean());
+});

@@ -8,7 +8,11 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings install",
-    "bundle:prod": "node builder.js --prod"
+    "bundle:prod": "node builder.js --prod",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "build_prod": "npm run build && browserify -s main dist/main.js > dist/bundle.js && npm run minify",
+    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -24,11 +28,14 @@
     "@angular/router": "~3.4.0",
     "@angular/upgrade": "~2.4.0",
     "@types/core-js": "^0.9.35",
+    "browserify": "^14.0.0",
     "core-js": "^2.4.1",
     "jquery": "^3.1.1",
     "ng-semantic": "^1.1.13",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
+    "typescript": "^2.0.10",
+    "uglifyjs": "^2.4.10",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
@@ -39,21 +46,32 @@
     "concurrently": "^3.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
     "gulp-gzip": "^1.4.0",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-live-server": "0.0.30",
     "gulp-load-plugins": "^1.3.0",
+    "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^2.4.0",
     "gulp-task-listing": "^1.0.1",
     "gulp-tslint": "^7.0.1",
     "gulp-typescript": "^3.1.4",
+    "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.7",
     "lite-server": "^2.2.2",
+    "live-server": "^1.2.0",
     "reflect-metadata": "^0.1.3",
     "rollup": "^0.36.1",
     "rollup-plugin-commonjs": "^5.0.4",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
+    "run-sequence": "^1.2.2",
+    "systemjs-builder": "^0.16.1",
     "tsconfig-glob": "^0.4.3",
-    "tslint": "^4.1.1",
-    "typescript": "^2.0.10"
+    "tslint": "^4.1.1"
   }
 }

@@ -19,7 +19,7 @@ export class UsersProfileComponent {
         .subscribe(
           data => this.user = User.toUser(data.user),
           err => console.log(err),
-          () => console.log('done')
+          () => console.log("done")
         );
   }
 

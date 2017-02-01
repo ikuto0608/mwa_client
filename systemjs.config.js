@@ -15,6 +15,12 @@
             "@angular/router": "npm:@angular/router/bundles/router.umd.js",
             "@angular/forms": "npm:@angular/forms/bundles/forms.umd.js",
             '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
+
+            //shims
+            'core-js-shim':'npm:core-js/client/shim.min.js',
+            'zone':'npm:zone.js/dist/zone.js',
+            'reflect':'npm:reflect-metadata/Reflect.js',
+
             // other libraries
             "rxjs":                       "npm:rxjs",
             "jquery":                     "npm:jquery/dist/jquery.min.js",
@@ -31,10 +37,6 @@
             },
             "ng-semantic": {
                 main: "ng-semantic",
-                defaultExtension: "js"
-            },
-            "contra": {
-                main: "debounce",
                 defaultExtension: "js"
             },
         }
