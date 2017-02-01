@@ -9,3 +9,9 @@
 npm -i
 npm start
 ```
+
+## Publishing
+
+```bash
+gulp dist
+```
