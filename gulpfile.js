@@ -1,3 +1,4 @@
+// reference https://github.com/Anjmao/angular2-production-workflow
 var gulp = require('gulp');
 var shell = require('gulp-shell');
 var clean = require('gulp-clean');
