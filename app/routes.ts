@@ -29,11 +29,11 @@ export const routes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
   { path: "exams", component: ExamsComponent,
     children: [
-      { path: "", component: ExamsIndexComponent },
+      { path: "", component: ExamsIndexComponent, canActivate: [LoggedInGuard] },
       // { path: "new", component: ExamsNewComponent, canActivate: [LoggedInGuard] },
-      { path: "new", component: ExamsNewComponent },
-      { path: "edit/:id", component: ExamsEditComponent },
-      { path: "take/:id", component: ExamsTakeComponent },
+      { path: "new", component: ExamsNewComponent, canActivate: [LoggedInGuard] },
+      { path: "edit/:id", component: ExamsEditComponent, canActivate: [LoggedInGuard] },
+      { path: "take/:id", component: ExamsTakeComponent, canActivate: [LoggedInGuard] },
     ]
   },
 ];
