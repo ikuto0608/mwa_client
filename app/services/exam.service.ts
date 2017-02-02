@@ -84,9 +84,9 @@ export class ExamService {
     headers.append("Authorization", `Bearer ${authToken}`);
     let options = new RequestOptions({headers: headers});
 
-    this.http.post(this.examsUrl, body, options)
-             .map(res => res.json())
-             .subscribe();
+    return this.http
+               .post(this.examsUrl, body, options)
+               .map(res => res.json());
   }
 
   update(id: number, examJson: any) {
@@ -97,9 +97,9 @@ export class ExamService {
     headers.append("Authorization", `Bearer ${authToken}`);
     let options = new RequestOptions({headers: headers});
 
-    this.http.post(this.examsUrl + id + "/update", body, options)
-             .map(res => res.json())
-             .subscribe();
+    return this.http
+               .post(this.examsUrl + id + "/update", body, options)
+               .map(res => res.json());
   }
 
   sendResult(examJson: any) {

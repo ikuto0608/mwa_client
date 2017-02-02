@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { Exam } from "../../models/exam";
 import { Tag } from "../../models/tag";
@@ -18,7 +19,7 @@ export class ExamsNewComponent implements AfterViewInit {
   public exam: Exam;
   public modal: any;
 
-  constructor(private examService: ExamService) {
+  constructor(private router: Router, private examService: ExamService) {
   }
 
   ngOnInit() {
@@ -56,17 +57,74 @@ export class ExamsNewComponent implements AfterViewInit {
       });
     }
 
+    let isValid = !this.exam.topics.some((topic) => {
+      if (topic.indexOfAnswerArray.length != this.exam.numberOfAnswer) {
+        return true;
+      }
+    });
+
+    if (!isValid) {
+      let contentHash = { title: "Failed", message: "Each topic has correct number of answer!" };
+      this.modal.title = contentHash.title;
+      this.modal.message = contentHash.message;
+
+      return this.modal.confirmModal.show({
+        inverted: true,
+        duration: 100,
+        onApprove: function() {
+          return true;
+        },
+        onDeny: function() {
+          return true;
+        },
+      });
+    }
+
     let examService = this.examService;
     let exam = this.exam;
+
+    this.modal.title = "Confirm";
+    this.modal.message = "Are you going to create it?";
     this.modal.confirmModal.show({
       inverted: true,
       duration: 100,
-      onApprove: function() {
-        examService.save(exam.toJson());
+      onApprove: () => {
+        examService.save(exam.toJson())
+                   .subscribe(
+                     res => {
+                       this.modal.title = "Notification";
+                       this.modal.message = "The exam created!";
+                       return this.modal.confirmModal.show({
+                         inverted: true,
+                         duration: 100,
+                         onApprove: () => {
+                           this.router.navigate(["/exams"]);
+                         },
+                         onDeny: () => {
+                           this.router.navigate(["/exams"]);
+                         },
+                       });
+                     },
+                     err => {
+                       this.modal.title = "Error";
+                       this.modal.message = "Something is wrong in server!";
+                       return this.modal.confirmModal.show({
+                         inverted: true,
+                         duration: 100,
+                         onApprove: () => {
+                           return true;
+                         },
+                         onDeny: () => {
+                           return true;
+                         },
+                       });
+                     },
+                     () => console.log("done"),
+                   );
       },
-      onDeny: function() {
+      onDeny: () => {
         return true;
-      },
+      }
     });
   }
 
