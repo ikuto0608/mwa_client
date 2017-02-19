@@ -1,5 +1,5 @@
 # Momerise
-This is a client of memorizing app.
+This is a web client of memorizing app.
 
 ## Installation
 
